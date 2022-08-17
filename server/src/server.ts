@@ -52,7 +52,6 @@ const userServer: UserHandlers = {
         res: grpc.sendUnaryData<UserResponse>
     ) {
         const span = tracer.startSpan("UserService:GetUser()");
-        // api.trace.setSpan(api.context.active(), span);
 
         const userId = req.request.userId ?? "";
 
