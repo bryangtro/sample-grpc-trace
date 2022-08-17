@@ -6,11 +6,11 @@ import * as appInsight from "applicationinsights";
 import api, {SpanStatusCode} from "@opentelemetry/api";
 
 import container from "./database";
-import {ProtoGrpcType} from '../proto/user'
-import {UserHandlers} from "../proto/userPackage/User";
-import {UserId} from "../proto/userPackage/UserId";
-import {UserResponse} from '../proto/userPackage/UserResponse';
 import tracer from "./tracer";
+import {RoleHandlers} from "../proto/rolePackage/Role";
+import {ProtoGrpcType} from "../proto/role";
+import {RoleResponse} from "../proto/rolePackage/RoleResponse";
+import {RoleRequest} from "../proto/rolePackage/RoleRequest";
 
 appInsight
     .setup(process.env.APPLICATION_INSIGHTS_CONNECTION_STRING)
@@ -24,17 +24,15 @@ appInsight
     .setDistributedTracingMode(appInsight.DistributedTracingModes.AI_AND_W3C)
     .start();
 
-console.log("Server file ran!!")
-const PORT = 8001
+const PORT = 8002
 const PROTO_FILE = '../proto/user.proto'
 
 const packageDef = protoLoader.loadSync(path.resolve(__dirname, PROTO_FILE))
 const grpcObj = (grpc.loadPackageDefinition(packageDef) as unknown) as ProtoGrpcType
-const userPackage = grpcObj.userPackage
+const rolePackage = grpcObj.rolePackage
 
 function main() {
     const server = getServer()
-
     server.bindAsync(`0.0.0.0:${PORT}`, grpc.ServerCredentials.createInsecure(),
         (err, port) => {
             if (err) {
@@ -46,24 +44,20 @@ function main() {
         })
 }
 
-const userServer: UserHandlers = {
-    GetUser: async function (
-        req: grpc.ServerUnaryCall<UserId, UserResponse>,
-        res: grpc.sendUnaryData<UserResponse>
+const roleServer: RoleHandlers = {
+    GetRoleDescription: async function (
+        req: grpc.ServerUnaryCall<RoleRequest, RoleResponse>,
+        res: grpc.sendUnaryData<RoleResponse>
     ) {
-        const span = tracer.startSpan("UserService:GetUser()");
-        api.trace.setSpan(api.context.active(), span);
-
-        const userId = req.request.userId ?? "";
+        const roleTitle = req.request.roleTitle ?? "";
+        const span = tracer.startSpan(`RoleService:GetRoleDescription(${roleTitle})`);
 
         try {
-            console.log("SayHello has been called!!")
-
-            const {resource: dbResult} = await container.item(userId, userId).read();
+            const {resource: dbResult} = await container.item(roleTitle, roleTitle).read();
             span.setStatus({code: SpanStatusCode.OK});
 
-            if (dbResult) return res(null, {username: dbResult.username, job: dbResult.job})
-            return res(null, {username: "", job: ""})
+            if (dbResult) return res(null, { roleDescription: dbResult.RoleDescription})
+            return res(null, {roleDescription: ""})
 
         } catch (e) {
             console.log(e)
@@ -74,13 +68,12 @@ const userServer: UserHandlers = {
         } finally {
             span.end()
         }
-
     }
 }
 
 function getServer() {
     const server = new grpc.Server()
-    server.addService(userPackage.User.service, userServer)
+    server.addService(rolePackage.Role.service, roleServer)
     return server
 }
 

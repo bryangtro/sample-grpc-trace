@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package rolePackage;
+
+service Role {
+  rpc GetRoleDescription(RoleRequest) returns (RoleResponse) {};
+}
+
+message RoleRequest {
+  string roleTitle = 1;
+}
+
+message RoleResponse {
+  string roleDescription = 1;
+}
