@@ -35,7 +35,7 @@ router.post("/:userId", async (ctx, next) => {
             role: user.role,
             roleDescription: roleDescription.roleDescription
         }
-
+        span.setAttribute("http.status_code", 200);
         ctx.body = userDetails;
     } catch (error) {
         const messageResponse = {
