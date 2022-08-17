@@ -8,11 +8,12 @@ import {UserResponse} from "../../../proto/userPackage/UserResponse";
 import tracer from "../../tracer";
 
 const router = new Router({
-    prefix: "/api/users/",
+    prefix: "/api/users",
 });
 
+
 // This is a GET Route that provides the user's detail, including the role description
-router.post("/:userId", async (ctx, next) => {
+router.get("/:userId", async (ctx, next) => {
     const { userId } = ctx.params
 
     const userClientCommand = new UserCommand(userClient)
