@@ -9,8 +9,8 @@ type configInterface = {
 const config: configInterface = {
   endpoint: process.env.COSMOSDB_ENDPOINT ?? "",
   key: process.env.COSMOSDB_KEY ?? "",
-  databaseId: process.env.COSMOSDB_DBID ?? "",
-  containerId: process.env.COSMOSDB_CONTAINERID ?? "",
+  databaseId: "role",
+  containerId: "role",
   partitionKey: { kind: "Hash", paths: ["/category"] },
 };
 

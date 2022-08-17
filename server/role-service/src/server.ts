@@ -25,7 +25,7 @@ appInsight
     .start();
 
 const PORT = 8002
-const PROTO_FILE = '../proto/user.proto'
+const PROTO_FILE = '../proto/role.proto'
 
 const packageDef = protoLoader.loadSync(path.resolve(__dirname, PROTO_FILE))
 const grpcObj = (grpc.loadPackageDefinition(packageDef) as unknown) as ProtoGrpcType
