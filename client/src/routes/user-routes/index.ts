@@ -26,7 +26,8 @@ router.post("/:userId", async (ctx, next) => {
             return await userClientCommand.getUser(userId)
         });
         const roleDescription = await api.context.with(spanContext, async () => {
-            return await roleClientCommand.getRoleDescription(user.role);
+            const role = user.role ?? "";
+            return await roleClientCommand.getRoleDescription(role);
         })
 
         const userDetails = {

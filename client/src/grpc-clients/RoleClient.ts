@@ -2,7 +2,7 @@ import * as grpc from "@grpc/grpc-js";
 import * as protoLoader from "@grpc/proto-loader";
 import {ProtoGrpcType} from "../../proto/role";
 
-const PROTO_FILE = `../../proto/role.proto`;
+const PROTO_FILE = './proto/role.proto';
 const packageDefinition = protoLoader.loadSync(PROTO_FILE, {
     keepCase: true,
     longs: String,
