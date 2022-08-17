@@ -56,14 +56,13 @@ const roleServer: RoleHandlers = {
             const {resource: dbResult} = await container.item(roleTitle, roleTitle).read();
             span.setStatus({code: SpanStatusCode.OK});
 
-            if (dbResult) return res(null, { roleDescription: dbResult.RoleDescription})
+            if (dbResult) return res(null, { roleDescription: dbResult.roleDescription})
             return res(null, {roleDescription: ""})
 
         } catch (e) {
             console.log(e)
             span.setStatus({
-                code: SpanStatusCode.ERROR,
-                message: e,
+                code: SpanStatusCode.ERROR
             });
         } finally {
             span.end()
