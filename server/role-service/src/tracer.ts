@@ -37,6 +37,5 @@ const exporter = new AzureMonitorTraceExporter({
 const processor = new SimpleSpanProcessor(exporter);
 provider.addSpanProcessor(processor);
 provider.register();
-console.log("tracer file ran")
 const tracer = trace.getTracer("global-tracer-name", "tracer-version");
 export default tracer;

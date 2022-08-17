@@ -20,7 +20,7 @@ appInsight
     .setAutoCollectExceptions(true)
     .setAutoCollectDependencies(true)
     .setAutoCollectConsole(true, true)
-    .setSendLiveMetrics(true)
+    .setSendLiveMetrics(false)
     .setDistributedTracingMode(appInsight.DistributedTracingModes.AI_AND_W3C)
     .start();
 
@@ -52,12 +52,11 @@ const userServer: UserHandlers = {
         res: grpc.sendUnaryData<UserResponse>
     ) {
         const span = tracer.startSpan("UserService:GetUser()");
-        api.trace.setSpan(api.context.active(), span);
 
         const userId = req.request.userId ?? "";
 
         try {
-            console.log("SayHello has been called!!")
+            console.log("GetUser has been called!!")
 
             const {resource: dbResult} = await container.item(userId, userId).read();
             span.setStatus({code: SpanStatusCode.OK});
@@ -68,8 +67,7 @@ const userServer: UserHandlers = {
         } catch (e) {
             console.log(e)
             span.setStatus({
-                code: SpanStatusCode.ERROR,
-                message: e,
+                code: SpanStatusCode.ERROR
             });
         } finally {
             span.end()
