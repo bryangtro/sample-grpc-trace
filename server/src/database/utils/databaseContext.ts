@@ -23,7 +23,7 @@ async function create(client: CosmosClient, databaseId: string, containerId: str
     .database(databaseId)
     .containers.createIfNotExists({ id: containerId, partitionKey }, { offerThroughput: 400 });
 
-  console.log("Pathfinder Database has been successfully connected.");
+  console.log("User Database has been successfully connected.");
 }
 
 export default { create };
