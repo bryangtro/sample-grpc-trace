@@ -1,10 +1,10 @@
 // Original file: proto/user.proto
 
 
-export interface UserId {
+export interface UserRequest {
   'userId'?: (string);
 }
 
-export interface UserId__Output {
+export interface UserRequest__Output {
   'userId'?: (string);
 }

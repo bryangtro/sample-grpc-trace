@@ -10,7 +10,7 @@ type SubtypeConstructor<Constructor extends new (...args: any) => any, Subtype> 
 export interface ProtoGrpcType {
   userPackage: {
     User: SubtypeConstructor<typeof grpc.Client, _userPackage_UserClient> & { service: _userPackage_UserDefinition }
-    UserId: MessageTypeDefinition
+    UserRequest: MessageTypeDefinition
     UserResponse: MessageTypeDefinition
   }
 }

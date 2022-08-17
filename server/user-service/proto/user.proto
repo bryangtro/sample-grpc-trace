@@ -11,6 +11,6 @@ message UserRequest {
 }
 
 message UserResponse {
-  string username = 1;
+  string name = 1;
   string role = 2;
 }

@@ -8,9 +8,9 @@ import api, {SpanStatusCode} from "@opentelemetry/api";
 import container from "./database";
 import {ProtoGrpcType} from '../proto/user'
 import {UserHandlers} from "../proto/userPackage/User";
-import {UserId} from "../proto/userPackage/UserId";
 import {UserResponse} from '../proto/userPackage/UserResponse';
 import tracer from "./tracer";
+import {UserRequest} from "../proto/userPackage/UserRequest";
 
 appInsight
     .setup(process.env.APPLICATION_INSIGHTS_CONNECTION_STRING)
@@ -48,7 +48,7 @@ function main() {
 
 const userServer: UserHandlers = {
     GetUser: async function (
-        req: grpc.ServerUnaryCall<UserId, UserResponse>,
+        req: grpc.ServerUnaryCall<UserRequest, UserResponse>,
         res: grpc.sendUnaryData<UserResponse>
     ) {
         const span = tracer.startSpan("UserService:GetUser()");
@@ -57,8 +57,8 @@ const userServer: UserHandlers = {
             const {resource: dbResult} = await container.item(userId, userId).read();
             span.setStatus({code: SpanStatusCode.OK});
 
-            if (dbResult) return res(null, {username: dbResult.username, job: dbResult.job})
-            return res(null, {username: "", job: ""})
+            if (dbResult) return res(null, {name: dbResult.name, role: dbResult.role})
+            return res(null, {name: "", role: ""})
 
         } catch (e) {
             console.log(e)

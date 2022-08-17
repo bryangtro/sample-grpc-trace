@@ -2,11 +2,11 @@
 
 
 export interface UserResponse {
-  'username'?: (string);
-  'job'?: (string);
+  'name'?: (string);
+  'role'?: (string);
 }
 
 export interface UserResponse__Output {
-  'username'?: (string);
-  'job'?: (string);
+  'name'?: (string);
+  'role'?: (string);
 }
