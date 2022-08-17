@@ -20,8 +20,8 @@ registerInstrumentations({
 
 const resource = Resource.default().merge(
     new Resource({
-        [SemanticResourceAttributes.SERVICE_NAME]: "service-name",
-        [SemanticResourceAttributes.SERVICE_VERSION]: "service-version",
+        [SemanticResourceAttributes.SERVICE_NAME]: "role-service",
+        [SemanticResourceAttributes.SERVICE_VERSION]: "1.0",
     }),
 );
 
@@ -37,5 +37,5 @@ const exporter = new AzureMonitorTraceExporter({
 const processor = new SimpleSpanProcessor(exporter);
 provider.addSpanProcessor(processor);
 provider.register();
-const tracer = trace.getTracer("global-tracer-name", "tracer-version");
+const tracer = trace.getTracer("sample-grpc-tracer", "1");
 export default tracer;
