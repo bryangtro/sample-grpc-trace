@@ -1,4 +1,4 @@
-# gRPC Tracing using OpenTelemetry in Azure ApplicationInsights with Node Typescript
+# gRPC Tracing using OpenTelemetry in Jaeger with Node Typescript
 This sample application shows how to implement distributed tracing using OpenTelemetry in Node Typescript.
 
 ## Architecure
