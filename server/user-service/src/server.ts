@@ -12,17 +12,7 @@ import {UserResponse} from '../proto/userPackage/UserResponse';
 import tracer from "./tracer";
 import {UserRequest} from "../proto/userPackage/UserRequest";
 
-appInsight
-    .setup(process.env.APPLICATION_INSIGHTS_CONNECTION_STRING)
-    .setAutoDependencyCorrelation(true)
-    .setAutoCollectRequests(true)
-    .setAutoCollectPerformance(true, true)
-    .setAutoCollectExceptions(true)
-    .setAutoCollectDependencies(true)
-    .setAutoCollectConsole(true, true)
-    .setSendLiveMetrics(false)
-    .setDistributedTracingMode(appInsight.DistributedTracingModes.AI_AND_W3C)
-    .start();
+
 
 console.log("Server file ran!!")
 const PORT = 8001

@@ -16,6 +16,7 @@
     "@azure/cosmos": "^3.16.4",
     "@azure/monitor-opentelemetry-exporter": "^1.0.0-beta.8",
     "@opentelemetry/api": "^1.1.0",
+    "@opentelemetry/exporter-jaeger": "^1.6.0",
     "@opentelemetry/instrumentation": "^0.31.0",
     "@opentelemetry/instrumentation-grpc": "^0.31.0",
     "@opentelemetry/instrumentation-http": "^0.31.0",

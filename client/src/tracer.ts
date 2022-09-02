@@ -1,5 +1,6 @@
 import { AzureMonitorTraceExporter } from "@azure/monitor-opentelemetry-exporter";
 import { trace } from "@opentelemetry/api";
+import { JaegerExporter } from "@opentelemetry/exporter-jaeger";
 import { registerInstrumentations } from "@opentelemetry/instrumentation";
 import { GrpcInstrumentation } from "@opentelemetry/instrumentation-grpc";
 import { HttpInstrumentation } from "@opentelemetry/instrumentation-http";
@@ -11,7 +12,6 @@ import * as dotenv from "dotenv";
 
 dotenv.config();
 
-const CONNECTION_STRING = process.env.APPLICATION_INSIGHTS_CONNECTION_STRING ?? "";
 
 // Optionally register automatic instrumentation libraries
 registerInstrumentations({
@@ -29,9 +29,8 @@ const provider = new NodeTracerProvider({
     resource,
 });
 
-const exporter = new AzureMonitorTraceExporter({
-    connectionString: CONNECTION_STRING,
-});
+const exporter = new JaegerExporter();
+
 
 // All tracings are exported and stored in Azure SDK
 const processor = new SimpleSpanProcessor(exporter);

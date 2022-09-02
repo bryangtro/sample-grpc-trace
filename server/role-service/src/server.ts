@@ -12,17 +12,6 @@ import {ProtoGrpcType} from "../proto/role";
 import {RoleResponse} from "../proto/rolePackage/RoleResponse";
 import {RoleRequest} from "../proto/rolePackage/RoleRequest";
 
-appInsight
-    .setup(process.env.APPLICATION_INSIGHTS_CONNECTION_STRING)
-    .setAutoDependencyCorrelation(true)
-    .setAutoCollectRequests(true)
-    .setAutoCollectPerformance(true, true)
-    .setAutoCollectExceptions(true)
-    .setAutoCollectDependencies(true)
-    .setAutoCollectConsole(true, true)
-    .setSendLiveMetrics(true)
-    .setDistributedTracingMode(appInsight.DistributedTracingModes.AI_AND_W3C)
-    .start();
 
 const PORT = 8002
 const PROTO_FILE = '../proto/role.proto'

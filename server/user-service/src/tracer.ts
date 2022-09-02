@@ -8,10 +8,10 @@ import { SimpleSpanProcessor } from "@opentelemetry/sdk-trace-base";
 import { NodeTracerProvider } from "@opentelemetry/sdk-trace-node";
 import { SemanticResourceAttributes } from "@opentelemetry/semantic-conventions";
 import * as dotenv from "dotenv";
+import {JaegerExporter} from "@opentelemetry/exporter-jaeger";
 
 dotenv.config();
 
-const CONNECTION_STRING = process.env.APPLICATION_INSIGHTS_CONNECTION_STRING ?? "";
 
 // Optionally register automatic instrumentation libraries
 registerInstrumentations({
@@ -29,9 +29,7 @@ const provider = new NodeTracerProvider({
     resource,
 });
 
-const exporter = new AzureMonitorTraceExporter({
-    connectionString: CONNECTION_STRING,
-});
+const exporter = new JaegerExporter();
 
 // All tracings are exported and stored in Azure SDK
 const processor = new SimpleSpanProcessor(exporter);
