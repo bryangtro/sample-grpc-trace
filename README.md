@@ -24,7 +24,8 @@ and Jaeger Exporter accordingly.
 
 You will need to run the following command in your terminal.
 
-```docker run -d --name jaeger \
+```
+docker run -d --name jaeger \
   -e COLLECTOR_ZIPKIN_HOST_PORT=:9411 \
   -e COLLECTOR_OTLP_ENABLED=true \
   -p 6831:6831/udp \
