@@ -1,7 +1,7 @@
 # gRPC Tracing using OpenTelemetry in Azure ApplicationInsights with Node Typescript
 This sample application shows how to implement distributed tracing using OpenTelemetry in Node Typescript.
 
-## Architecure
+## Architecture
 
 ### client
 
@@ -26,8 +26,6 @@ and Application Insights accordingly.
 APPLICATION_INSIGHTS_CONNECTION_STRING
 COSMOSDB_ENDPOINT
 COSMOSDB_KEY
-COSMOSDB_DBID
-COSMOSDB_CONTAINERID
 ```
 
 ### user
