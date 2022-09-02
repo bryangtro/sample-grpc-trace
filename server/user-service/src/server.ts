@@ -41,8 +41,9 @@ const userServer: UserHandlers = {
         req: grpc.ServerUnaryCall<UserRequest, UserResponse>,
         res: grpc.sendUnaryData<UserResponse>
     ) {
-        const span = tracer.startSpan("UserService:GetUser()");
         const userId = req.request.userId ?? "";
+        const span = tracer.startSpan(`UserService:GetUser(${userId})`);
+
         try {
             const {resource: dbResult} = await container.item(userId, userId).read();
             span.setStatus({code: SpanStatusCode.OK});
